@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles/cokie.module.css'
+//import {useStateFromLocalStorage} from "../hooks/useStateFromLocalStorage";
 
-const Cookie = ({setClickCount, clickCount}) => {
+const Cookie = ({setClickCount, clickCount, powerClick}) => {
 
     const addClick = () => {
-        setClickCount(clickCount+1);
+        setClickCount(clickCount+powerClick);
     }
 
     return (
@@ -14,6 +15,7 @@ const Cookie = ({setClickCount, clickCount}) => {
 };
 
 Cookie.propTypes = {
+    powerClick: PropTypes.number.isRequired,
     setClickCount: PropTypes.func.isRequired,
     clickCount: PropTypes.number.isRequired
 }
