@@ -1,0 +1,19 @@
+.factory {
+    width: 400px;
+    animation: rotate-factory 2s ease-in-out infinite alternate;
+    user-focus: none;
+    user-select: none;
+    user-modify: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+@keyframes rotate-factory {
+    0% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(10deg);
+    }
+}
