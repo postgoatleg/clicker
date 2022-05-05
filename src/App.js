@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import Cookie from "./components/cokie";
 import {useState} from "react";
 
