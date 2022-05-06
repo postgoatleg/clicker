@@ -1,18 +1,48 @@
-import React from 'react';
+import React, {useState, useCallback, useContext, useEffect} from 'react';
 import styles from './styles/shopElement.module.css'
 import PropTypes from "prop-types";
+import {GameContext} from "../gameСontext";
 
+const intervalTimeout = 250
 
-const ShopElement = ({title, cost, boost, setPowerClick, powerClick, clickCount, setClickCount}) => {
-    const buyButton = () => {
-        if(cost < clickCount) {
-            setPowerClick(powerClick+boost);
-            setClickCount(clickCount-cost);
+const ShopElement = ({title, cost, boost}) => {
+    const [isBuyingInProgress, setIsBuyingInProgress] = useState(false);
+    const {clickCount, setClickCount, setPowerClick} = useContext(GameContext);
+
+    const buy = useCallback(() => {
+        if (cost <= clickCount) {
+            setPowerClick(prev => prev + boost);
+            setClickCount(prev => prev - cost);
+        } else {
+            alert("You haven't enough money!")
+            stopBuying()
         }
-        else alert("You haven't enough money!");
-    }
+    }, [cost, clickCount, setClickCount, setPowerClick]);
+
+    const startBuying = () => {
+        setIsBuyingInProgress(true)
+        buy();
+    };
+
+    const stopBuying = () => {
+        setIsBuyingInProgress(false)
+    };
+
+    useEffect(() => {
+        if (isBuyingInProgress) {
+            const timeoutId = setTimeout(buy, intervalTimeout)
+            window.addEventListener('mouseup', stopBuying)
+
+            return () => {
+                clearTimeout(timeoutId)
+                window.removeEventListener('mouseup', stopBuying)
+            }
+        }
+    },[buy, isBuyingInProgress])
+
+
     return (
-        <div className={styles.shopElement} onClick={buyButton}>
+        <div className={styles.shopElement} onMouseDown={startBuying}>
             <h2>{title}</h2>
             <p>Power - {boost}</p>
             <p> COST: {cost}</p>
@@ -26,9 +56,6 @@ ShopElement.propTypes = {
     boost: PropTypes.number.isRequired,
     powerClick: PropTypes.number.isRequired,
     setPowerClick: PropTypes.func.isRequired,
-    clickCount: PropTypes.number.isRequired,
-    setClickCount: PropTypes.number.isRequired,
-
 }
 
 export default ShopElement;

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles/cokie.module.css'
+import {GameContext} from "../gameСontext";
 //import {useStateFromLocalStorage} from "../hooks/useStateFromLocalStorage";
 
-const Cookie = ({setClickCount, clickCount, powerClick}) => {
+const Cookie = () => {
+    const {clickCount, setClickCount, powerClick} = useContext(GameContext);
 
     const addClick = () => {
         setClickCount(clickCount+powerClick);

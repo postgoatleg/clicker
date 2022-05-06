@@ -16,7 +16,7 @@ const saveValue = (localStorageKey, newValue) => {
 
 const resolveNewValue = (oldValue, newValue) => {
     if (typeof newValue === 'function') {
-        newValue(oldValue)
+        return newValue(oldValue)
     }
 
     return newValue
@@ -32,4 +32,4 @@ export const useStateFromLocalStorage = (localStorageKey, initialValue) => {
     }
 
     return [value, setValueWithSaveToLocalStorage]
-}
+};
