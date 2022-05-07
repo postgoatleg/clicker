@@ -9,6 +9,8 @@ const noFunction = () => {
 export const GameContext = React.createContext({
     clickCount: 0,
     powerClick: 0,
+    autoClickPower: 0,
+    setAutoClickPower: noFunction,
     setClickCount: noFunction,
     setPowerClick: noFunction,
 });
@@ -16,9 +18,10 @@ export const GameContext = React.createContext({
 export const GameContextProvider = ({children = null}) => {
     const [clickCount, setClickCount] = useStateFromLocalStorage('clicksCounts', 0);
     const [powerClick, setPowerClick] = useStateFromLocalStorage('powerClick', 1);
+    const [autoClickPower, setAutoClickPower] = useStateFromLocalStorage('autoClickPower', 0);
 
     return (
-        <GameContext.Provider value={{clickCount, setClickCount, setPowerClick, powerClick}}>
+        <GameContext.Provider value={{clickCount, setClickCount, setPowerClick, powerClick, autoClickPower, setAutoClickPower}}>
             {children}
         </GameContext.Provider>
     )

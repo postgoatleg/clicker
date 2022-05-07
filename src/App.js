@@ -1,17 +1,16 @@
 import './App.css';
-import React, {useContext} from 'react';
+import React from 'react';
 import Cookie from "./components/cokie";
 import Shop from "./components/shop";
-import {GameContext} from "./gameСontext";
+import InfoPanel from "./components/infoPanel";
 
 function App() {
-    const {clickCount, powerClick} = useContext(GameContext);
 
   return (
           <div className="App">
-            <h1>{clickCount}. Power: {powerClick}</h1>
-            <Cookie />
-            <Shop />
+              <InfoPanel/>
+              <Cookie />
+              <Shop />
           </div>
   );
 }
